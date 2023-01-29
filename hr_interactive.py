@@ -18,6 +18,9 @@ def hr_diagram(data):
     ax.set_title("HR Diagram")
     ax.set_ylabel("Luminosity (L/Lo)")
     ax.set_xlabel("Temperature (K)")
+    
+    ax_twin.yaxis.set_ticks([])
+    
     graph.tight_layout()
     
     graph.canvas.mpl_connect("button_press_event", on_click)
@@ -36,6 +39,7 @@ def on_click(event):
         ax_twin.plot(points[0],points[1], color="#FF0000")
         ax_twin.set_yscale("log")
         ax_twin.set_ybound(ax.get_ybound())
+        ax_twin.yaxis.set_ticks([])
         plt.draw()
 
 def get_closest_point(x, y, dom, ran):
