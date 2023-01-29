@@ -1,69 +1,51 @@
-# ACM Research coding challenge (Spring 2023)
+# ACM Research Coding Challenge S23
 
-![image](https://user-images.githubusercontent.com/72369124/211179527-0ee60624-2794-4e13-bf7f-f88b5c950e44.png)
+## Short and Sweet Summary
 
-## IMPORTANT: Make sure to create a fork of this repo and share the link on your ACM Research Application Typeform submission. The coding challenge does not have to be completed at the time of you submitting the Typeform application (unless you completed the application last minute!)
+<img src="https://sugargeekshow.com/wp-content/uploads/2022/08/vanilla_cupcakes_featured-scaled.jpg" alt="A sweet and short cupcake, like this summary" width="250" height="250">
 
-Note: If it's getting down to the deadline (February 1st at 11:59 PM CST) and you don't think you will be able to finish your project on time, just complete whatever you have! Please do not work on the challenge after the deadline, but if you do need a few extra hours, make sure your challenge is done before interviews begin tomorrow (Feb 2nd).
+*I made a partial HR Diagram that can be clicked to show closest star to click location.*
 
-This semester's challenge is especially open-ended. [Please refer to this dataset](https://www.kaggle.com/datasets/deepu1109/star-dataset) on Kaggle called "Star dataset to predict star types".  It contains information about 240 stars and various properties taken from "Stars and Galaxies" by Seeds and Backman. Each row contains 7 pieces of information about a star, such as its temperature, luminosity, radius, absolute magnitude, star type, star color, and spectral class.
+## The Long Road Home Report
 
-Please note that the star type, denoted as integers, are translated as the following:
-- Brown Dwarf -> Star Type = 0
-- Red Dwarf -> Star Type = 1
-- White Dwarf -> Star Type = 2
-- Main Sequence -> Star Type = 3
-- Supergiant -> Star Type = 4
-- Hypergiant -> Star Type = 5
+<img src="https://www.msbaptistfoundation.org/hp_wordpress/wp-content/uploads/2020/09/road-1024x682.jpg" alt="Did you ever hear the tragedy of darth plagueis the wise... yadda yadda you get the point" width="250" height="250">
 
----
+### Goals
+I started out by browsing the data set for interesting information and just seeing if anything popped out. I had used HR Diagrams in middle school science before, so I planned to replicate one of those to start with and see where this visualization took me.
 
-## INSTRUCTIONS: Please read this carefully, do not skim this!
+### Research
+I started familiarizing myself with what exactly an HR Diagram was and what it was used for. Essentially, they can be used to track the life cycle of stars and model different stages like *Supergiants* and *White Dwarfs*. Their axes are either temperature in kelvin v. luminosity in solar luminosity or spectral class v. absolute visual magnitude depending on whether the HR Diagram is the theoretical or observational version with some diagrams featuring both. Additionally, the temperature axis inverted from hottest to coldest and the luminosity axis is in a log scale.
 
-### Here's the coding challenge: **What can you do with all of this data?** Yes, this is an **OPEN-ENDED** question and your answer should be a brief report, showcasing your skills. Can you find a pattern, answer a question, or create a visualization? In case nothing comes to mind, here are some ideas, with varying complexity:
+### Coding
+I wanted to learn more about the matplotlib package in python, specifically pyplot, so I began working on making a graph that would replicate an HR Diagram. I needed to reference the pyplot documentation quite a bit to learn the functions I could use to customize the graph such and the `ax.set_yscale("log")` and `ax.invert_xaxis()` functions that would make the HR Diagram appear. I initially tried to do a complete HR Diagram with both the theoretical and observational comparisons but I couldn't come up with an easy solution in a reasonable time for this *short* challenge, so I made do with only the theoretical axes[^1].
 
-- What is the most common star type in the data?
-- What common patterns do you notice between any two properties? Ex: Is there a relationship between the star color and temperature?
-- What properties are the most influential in classifying a star's type?
-- Can you make a similar graph as the one shown in Kaggle to showcase the data as a Hertzsprung-Russell Diagram?
-- Train a machine learning model to then predict the star type of a row of data (without the star type field) and find the model's accuracy.
-Bonus: Can you find the row of data that most closely resembles our star, the Sun?
+### More Coding
+After completing the HR diagram, I knew I wanted to do some type of user input to affect the graph. I looked into the matplotlib animation and event handling documentation sections and explored. I came up with the idea to get the closest star to where the user clicked and began to implement that. I did this by getting the user's data position that was clicked on the plot and finding the actual point with the minimum distance to that position [^2]. I ended up needing to remove the observational HR diagram from the pair and only implement the closest point functionality on the theoretical HR[^3]. I then added a new line on the same HR plot that would connect the user's clicked position and the closest star[^4].
 
-However, we strongly encourage you to come up with your own problem to solve! This is for you to showcase your skills!
+### Results
 
-You can use any programming language, framework, or library you want, but we recommend [creating a notebook in Kaggle](https://www.kaggle.com/docs/notebooks) and using Python. This will run in your browser, interlaces code with documentation, allows you to import the Stars dataset easily by pressing the "Add data" button, and gives you access to Python's high-quality, high-level libraries for working with data. [Learn more about data science in Python.](https://www.w3schools.com/datascience/ds_python.asp)
+Here is the HR Diagram that generates on starting the python file:
 
----
+<img src="/img/hr_imgreg.png" alt="Base HR Diagram generated" width="400" height="400">
 
-## How to create your solution repo **(COMPLETE STEPS #1 and #2 BEFORE YOU SUBMIT YOUR APPLICATION, AND PUT THE LINK IN THE APPLICATION)**
+Here is examples of the closest star functionality and the corresponding console output
 
-1. [Create a **public** fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo) of this repository and name it  `ACM-Research-coding-challenge-23S` (click the "Fork" button in the top right).
+<img src="/img/hr_imgline1.png" alt="Base HR Diagram generated" width="250" height="250">
+<img src="/img/hr_imgline2.png" alt="Base HR Diagram generated" width="250" height="250">
+<img src="/img/hr_imgline3.png" alt="Base HR Diagram generated" width="250" height="250">
+<img src="/img/hr_imgtext.png" alt="Base HR Diagram generated" width="750" height="150">
 
-2. Put the link to your fork in your ACM Research application in the question where it asks to do so. **This can just be a empty repo as you have until February 2 to work on your coding challenge in this repository**
+The closest star functionality is accurate to the actual temperature and luminosity values but appears faulty from the third graph image with a line. This is due to how the y-axis of luminosity is log scaled and so graphical data is distorted and may confuse the user who is used to regularly scaled graphs.
 
-3. Replace this README file with a description ([written in Markdown](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/about-writing-and-formatting-on-github)) of your solution. Regardless of your success, describe the problem you set out to solve and how you did it. Split it up into sections with headers, and, if relevant, include figures.
+### Future
+If I had more time, I would devote time to creating a more accurate HR Diagram with both sets of axes as well as displaying the closest star's spectral class. Additionally, doing more serious data transformations would be interesting such as utilizing a clustering analysis algorithm to predict spectral classes and testing its accuracy the actual classes[^5].
 
-4. Make sure to include all relevant files in your fork. If you made the project in a Kaggle notebook, click **File** → **Download Notebook** to download it as an `.ipynb` file.
+### Bonus
+The closest star in the data set to our sun is the star with these qualities `5587 0.819 0.99 5.03 3 yellow-white F`. This is due to the similar temperature between them *5587 v. 5400*, the similar luminosity *0.819 v. 1*, similar radius *0.99 v. 1*, similar absolute visual magnitude *5.03 v. 4.83*, similar color *yellow-white v. yellow*, and similar spectral class *F v. G*. This was just found in the course of research and was not found by any programs.
 
-4. You may have to "clone" the fork you made to edit files locally on your computer and "push" them to GitHub. Learn how to do that [here](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository).
+[^1]: I did make two adjacent plots work though, with theoretical HR on the left and observational HR on the right, but I would scrap the idea later in order to simplify my added functionality.
+[^2]: I just did *(change in x)<sup>2</sup> + (change in y)<sup>2</sup>* to compute distance instead of adding the square root too because it doesn't change the result and square root is an expensive calculation in optimization if that mattered at all.
+[^3]: Fixing this and creating a complete HR diagram would just take more time I didn't need to use
+[^4]: I just realized I forgot to output the closest star's spectral type as I originally planned. This would be implemented by intially mapping each temperature-position (x-y) pair to a their respective spectral class in a dictionary and saving that to key in and print later when the closest point was computed. 
+[^5]: I really like this idea now actually.
 
-5. Make sure your GitHub repo has everything important, including your report, any code you used, graphs, etc. You should not be working on this after the deadline (Feb 2).
-
-
-## No collaboration policy
-
-**You may not collaborate with anyone on this challenge.** You _are_ allowed (and encouraged) to use internet documentation. If you use existing code (either from Github, Stack Overflow, or other sources), **please cite your sources in the README**.
-
-## Timing
-
-Please don't spend too long on this project: **60 to 90 minutes** is reasonable. It's okay to put more time into your submission than that, but we don't expect you to get that much done; we really don't want this challenge to be a burden!
-
-If you're *completely new* to this kind of project, however, it will likely take you more than 90 minutes. This is a *densely useful* project to go through (you will learn a lot), so we believe this is justified.
-
-## Assessment criteria
-
-Submissions will be evaluated holistically, in combination with the rest of your application. We will consider your effort, use of external resources, how you approached the problem, and presentation, among other considerations.
-
-## Support and questions
-
-Feel free to ask for clarifications in the #research-qna channel in the [ACM UTD Discord server](https://discord.gg/nJxRdKdG4d)! You can also directly message ACM Research Co-Directors Pranav Nair or Sisi Aarukapalli-Rose on the ACM Discord server.
